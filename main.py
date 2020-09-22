@@ -1,27 +1,24 @@
-import pygame
+import pygame, sys, setters
+from snake import Snake
+from food import Food
 
-SCREEN_WIDTH = 480
-SCREEN_HEIGHT = 480
+screen_width = setters.SCREEN_WIDTH
+screen_height = setters.SCREEN_HEIGHT
 
-GRID_SIZE = 30
-GRID_WIDTH = int(SCREEN_WIDTH / GRID_SIZE)
-GRID_HEIGHT = int(SCREEN_HEIGHT / GRID_SIZE)
+grid_size = setters.GRID_SIZE
+grid_height = setters.GRID_HEIGHT
+grid_width = setters.GRID_WIDTH
 
-UP = (0,-1)
-DOWN = (0,1)
-LEFT = (0,-1)
-RIGHT = (0,1)
-
-FPS = 24
+fps = setters.FPS
 
 def draw_grid(surface):
-    for y in range(0,int(GRID_HEIGHT)):
-        for x in range(0,int(GRID_WIDTH)):
+    for y in range(0,int(grid_height)):
+        for x in range(0,int(grid_width)):
             if (x+y) % 2 == 0:
-                r = pygame.Rect((x*GRID_SIZE,y*GRID_SIZE), (GRID_SIZE, GRID_SIZE))
+                r = pygame.Rect((x*grid_size,y*grid_size), (grid_size, grid_size))
                 pygame.draw.rect(surface, (105,31,105), r)
             else:
-                rr = pygame.Rect((x*GRID_SIZE,y*GRID_SIZE), (GRID_SIZE, GRID_SIZE))
+                rr = pygame.Rect((x*grid_size,y*grid_size), (grid_size, grid_size))
                 pygame.draw.rect(surface, (77,41,77), rr)
 
 def main():
@@ -34,18 +31,35 @@ def main():
     pygame.display.set_icon(logo)
     pygame.display.set_caption("Snake")
 
-    screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT), pygame.RESIZABLE)
+    screen = pygame.display.set_mode((screen_width,screen_height), pygame.RESIZABLE)
 
     surface = pygame.Surface(screen.get_size())
     surface = surface.convert()
-
     draw_grid(surface)
+
+    snake = Snake()
+    food = Food()
+
+    myfont = pygame.font.SysFont("monospace", 16)
 
     running = True
 
+    score = 0
+
     while running:
-        clock.tick(FPS)
+        print(snake.positions)
+        clock.tick(fps)
+        snake.keys()
+        draw_grid(surface)
+        snake.move()
+        if snake.get_head_position() == food.position:
+            snake.length += 1
+            score += 1
+            food.randomize_position()
+        snake.draw(surface)
+        food.draw(surface)
         screen.blit(surface,(0,0))
+        text = myfont.render("Score {0}".format(score), 1, (0,0,0))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
