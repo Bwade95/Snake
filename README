@@ -2,7 +2,6 @@ Work in progress, simple Snake game using pygame
 
 TODO:
 
-- Fix snake movement
 - Have food spawn randomly on each load
 - Handle Border collision
 - Add death condition
