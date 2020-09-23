@@ -55,7 +55,7 @@ def main():
         if snake.get_head_position() == food.position:
             snake.length += 1
             score += 1
-            food.randomize_position()
+            food.randomise_position()
         snake.draw(surface)
         food.draw(surface)
         screen.blit(surface,(0,0))

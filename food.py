@@ -8,7 +8,7 @@ class Food:
     def draw(self,surface):
         r = pygame.Rect((self.position[0], self.position[1]), (grid_size,grid_size))
         pygame.draw.rect(surface, self.color, r)
-        pygame.draw.rect(surface, (93,216,228), r, 1)
+        pygame.draw.rect(surface, (0,0,0), r, 1)
 
     def randomise_position(self):
         self.position = (random.randint(0, grid_width-1) * grid_size, random.randint(0,grid_height-1) * grid_size)

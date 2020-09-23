@@ -12,7 +12,7 @@ class Snake:
         for p in self.positions:
             r = pygame.Rect((p[0],p[1]),(grid_size,grid_size))
             pygame.draw.rect(surface, self.color, r)
-            pygame.draw.rect(surface, (93,216,228), r, 1)
+            pygame.draw.rect(surface, (0,0,0), r, 1)
     
     # gets location of head of snake
     def get_head_position(self):
